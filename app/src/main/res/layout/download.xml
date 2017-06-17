@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imgDownload"
+        android:layout_width="match_parent"
+        android:layout_height="500px"
+        android:layout_above="@+id/display"
+        android:layout_alignParentStart="true" />
+
+    <ListView
+        android:id="@+id/listImage"
+        android:layout_width="match_parent"
+        android:layout_height="350px"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/imgDownload">
+
+    </ListView>
+
+    <Button
+        android:id="@+id/display"
+        android:text="Display image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

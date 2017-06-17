@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/connect_popup"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/connetti_popup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/indirizzo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp"
+        android:text="Connetti" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/indirizzo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="23dp"
+        android:padding="10dp"
+        android:text="Inserisci indirizzo"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/indirizzo"
+        android:layout_width="600px"
+        android:layout_height="200px"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="#97212121"
+        android:inputType="phone"
+        android:textColor="#dedede" />
+
+
+</RelativeLayout>
