@@ -33,7 +33,9 @@
 
         </activity>
         <activity
-            android:name="lastrico.r.appdrone.Connect"/>
+            android:name="lastrico.r.appdrone.Connect"
+            android:theme="@style/AppTheme.CustomTheme">
+        </activity>
 
         <activity android:name="lastrico.r.appdrone.DownloadActivity"
             android:screenOrientation="portrait"/>
