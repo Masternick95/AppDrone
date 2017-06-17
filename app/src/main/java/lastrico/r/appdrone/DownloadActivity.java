@@ -23,8 +23,7 @@ import java.util.HashMap;
 public class DownloadActivity extends AppCompatActivity {
     ImageView img;
     Button btn;
-    ListView listView;
-    HashMap<String, byte[]> imgDown = null;
+    byte[] imgDown = null;
 
     //BINDING WITH SocketService
     private boolean mIsBound;
@@ -53,37 +52,20 @@ public class DownloadActivity extends AppCompatActivity {
             mIsBound = getApplicationContext().bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
         }
         img = (ImageView) findViewById(R.id.imgDownload);
-        listView = (ListView) findViewById(R.id.listImage);
         btn = (Button) findViewById(R.id.display);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try{
-                    ArrayList<String> listName = new ArrayList<String>();
-                    for(String s : imgDown.keySet()){
-                        listName.add(s);
-                    }
-
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(DownloadActivity.this,android.R.layout.simple_list_item_1,listName);
-                    listView.setAdapter(adapter);
-
-                } catch (Exception e){
-                    mBoundService.displayToast(e.toString());
+                if(imgDown != null){
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(imgDown,0,imgDown.length);
+                    img.setImageBitmap(bitmap);
                 }
 
             }
         });
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String s = (String) parent.getItemAtPosition(position);
-                byte[] b = imgDown.get(s);
-                Bitmap bitmap = BitmapFactory.decodeByteArray(b,0,b.length);
-                img.setImageBitmap(bitmap);
-            }
-        });
+
     }
 
 }

@@ -25,8 +25,8 @@ import java.util.Calendar;
 
 import io.vov.vitamio.LibsChecker;
 
-import static lastrico.r.appdrone.Interface.ServerInterface2.RECOGNITION;
-import static lastrico.r.appdrone.Interface.ServerInterface2.TRAINING;
+import static lastrico.r.appdrone.Interface.ServerInterface.RECOGNITION;
+import static lastrico.r.appdrone.Interface.ServerInterface.TRAINING;
 
 public class Recognition extends AppCompatActivity {
     private Button btnTake, btnDownload, btnUpload, btnConnetti, btnDrone, btnConnectDrone;

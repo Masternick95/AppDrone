@@ -21,9 +21,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import static lastrico.r.appdrone.Interface.ServerInterface.DOWNLOAD;
+import static lastrico.r.appdrone.Interface.ServerInterface.TRAINING;
 import static lastrico.r.appdrone.Interface.ServerInterface.EXIT;
-import static lastrico.r.appdrone.Interface.ServerInterface.UPLOAD;
+import static lastrico.r.appdrone.Interface.ServerInterface.RECOGNITION;
 
 public class SocketService extends Service {
     private Handler handler = new Handler(Looper.getMainLooper());
@@ -37,7 +37,7 @@ public class SocketService extends Service {
     private Future<Object> inputData;
     private ExecutorService inputListener = Executors.newFixedThreadPool(2);
     public boolean isClosed;
-    private HashMap<String,byte[]> imgDownload;
+    private byte[] imgDownload;
 
     @Override
     public void onCreate() {
@@ -94,7 +94,7 @@ public class SocketService extends Service {
                 Object obj = null;
 
                 try {
-                    output.writeObject(UPLOAD);
+                    output.writeObject(TRAINING);
                     output.writeObject(imgName);
                     output.writeObject(imgByte);
                     obj = inputData.get();
@@ -121,21 +121,22 @@ public class SocketService extends Service {
         return executor.submit(callable);
     }
 
-    public Future<Boolean> downloadImage(){
+    public Future<Boolean> downloadImage(final String imgName, final byte[] imgByte){
         Callable<Boolean> callable = new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
                 Object obj = null;
 
                 try {
-
-                    output.writeObject(DOWNLOAD);
+                    output.writeObject(RECOGNITION);
+                    output.writeObject(imgName);
+                    output.writeObject(imgByte);
 
                     obj = inputData.get();
                     if (obj == null)
                         throw new NullPointerException("Null pointer exception");
 
-                    SocketService.this.imgDownload = (HashMap<String, byte[]>) obj;
+                    SocketService.this.imgDownload = (byte[]) obj;
 
                 } catch (IOException | ExecutionException | InterruptedException e) {
                     displayToast(e.getMessage());
@@ -152,7 +153,7 @@ public class SocketService extends Service {
         return executor.submit(callable);
     }
 
-    public HashMap<String, byte[]> getImgDownload(){
+    public byte[] getImgDownload(){
         return imgDownload;
     }
 

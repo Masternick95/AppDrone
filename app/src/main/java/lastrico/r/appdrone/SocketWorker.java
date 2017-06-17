@@ -15,13 +15,6 @@ public class SocketWorker extends AsyncTask<Void, Void, Boolean> {
     ProgressDialog progress;
     int action;
 
-    public SocketWorker(Context context, SocketService socket, ProgressDialog progress, int action){
-        this.context = context;
-        this.socket = socket;
-        this.progress = progress;
-        this.action = action;
-    }
-
     public SocketWorker(Context context, SocketService socket, String imgName, byte[] imgByte, ProgressDialog progress, int action){
         this.context = context;
         this.socket = socket;
@@ -47,7 +40,7 @@ public class SocketWorker extends AsyncTask<Void, Void, Boolean> {
             if(action == 1)
                 return socket.uploadImage(imgName,imgByte).get();
             else if(action == 2)
-                return socket.downloadImage().get();
+                return socket.downloadImage(imgName,imgByte).get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }

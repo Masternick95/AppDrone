@@ -32,7 +32,7 @@ import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 
 import static android.R.color.holo_red_dark;
-import static lastrico.r.appdrone.Interface.ServerInterface.UPLOAD;
+import static lastrico.r.appdrone.Interface.ServerInterface.TRAINING;
 
 
 public class Training  extends Activity  implements NavigationView.OnNavigationItemSelectedListener {
@@ -174,7 +174,7 @@ public class Training  extends Activity  implements NavigationView.OnNavigationI
                 if (mIsBound && mBoundService != null) {
                     if (imgByte != null) {
                         SocketWorker socketWorker =
-                                new SocketWorker(Training.this,mBoundService,"prova",imgByte,progress,UPLOAD);
+                                new SocketWorker(Training.this,mBoundService,"prova",imgByte,progress,TRAINING);
                         socketWorker.execute();
 
                     }

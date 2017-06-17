@@ -4,6 +4,10 @@
         "source": "C:\\Users\\rick\\Desktop\\AppDrone\\Vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\scrubber_control_disabled_holo.png"
     },
     {
+        "merged": "C:\\Users\\Gianluca\\Documents\\AndroidStudioProjects\\AppDrone\\Vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\scrubber_control_disabled_holo.png",
+        "source": "C:\\Users\\Gianluca\\Documents\\AndroidStudioProjects\\AppDrone\\Vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\scrubber_control_disabled_holo.png"
+    },
+    {
         "merged": "C:\\Users\\rick\\Desktop\\AppDrone\\Vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\scrubber_secondary_holo.9.png",
         "source": "C:\\Users\\rick\\Desktop\\AppDrone\\Vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\scrubber_secondary_holo.9.png"
     },
@@ -12,20 +16,40 @@
         "source": "C:\\Users\\rick\\Desktop\\AppDrone\\Vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\scrubber_control_pressed_holo.png"
     },
     {
+        "merged": "C:\\Users\\Nick\\Downloads\\AppDrone\\Vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\scrubber_control_disabled_holo.png",
+        "source": "C:\\Users\\Nick\\Downloads\\AppDrone\\Vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\scrubber_control_disabled_holo.png"
+    },
+    {
         "merged": "C:\\Users\\Nick\\Downloads\\AppDrone\\Vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\mediacontroller_play.png",
         "source": "C:\\Users\\Nick\\Downloads\\AppDrone\\Vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\mediacontroller_play.png"
     },
     {
-        "merged": "C:\\Users\\Nick\\Downloads\\AppDrone\\Vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\scrubber_control_disabled_holo.png",
-        "source": "C:\\Users\\Nick\\Downloads\\AppDrone\\Vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\scrubber_control_disabled_holo.png"
+        "merged": "C:\\Users\\Gianluca\\Documents\\AndroidStudioProjects\\AppDrone\\Vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\scrubber_control_normal_holo.png",
+        "source": "C:\\Users\\Gianluca\\Documents\\AndroidStudioProjects\\AppDrone\\Vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\scrubber_control_normal_holo.png"
     },
     {
         "merged": "C:\\Users\\Nick\\Documents\\Materiale Universita\\MAFI\\Progetti\\AppDrone\\Vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\scrubber_control_normal_holo.png",
         "source": "C:\\Users\\Nick\\Documents\\Materiale Universita\\MAFI\\Progetti\\AppDrone\\Vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\scrubber_control_normal_holo.png"
     },
     {
+        "merged": "C:\\Users\\Gianluca\\Documents\\AndroidStudioProjects\\AppDrone\\Vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\scrubber_control_focused_holo.png",
+        "source": "C:\\Users\\Gianluca\\Documents\\AndroidStudioProjects\\AppDrone\\Vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\scrubber_control_focused_holo.png"
+    },
+    {
+        "merged": "C:\\Users\\Gianluca\\Documents\\AndroidStudioProjects\\AppDrone\\Vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\mediacontroller_pause.png",
+        "source": "C:\\Users\\Gianluca\\Documents\\AndroidStudioProjects\\AppDrone\\Vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\mediacontroller_pause.png"
+    },
+    {
         "merged": "C:\\Users\\Nick\\Documents\\Materiale Universita\\MAFI\\Progetti\\AppDrone\\Vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\scrubber_control_pressed_holo.png",
         "source": "C:\\Users\\Nick\\Documents\\Materiale Universita\\MAFI\\Progetti\\AppDrone\\Vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\scrubber_control_pressed_holo.png"
+    },
+    {
+        "merged": "C:\\Users\\Gianluca\\Documents\\AndroidStudioProjects\\AppDrone\\Vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\scrubber_track_holo_dark.9.png",
+        "source": "C:\\Users\\Gianluca\\Documents\\AndroidStudioProjects\\AppDrone\\Vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\scrubber_track_holo_dark.9.png"
+    },
+    {
+        "merged": "C:\\Users\\Gianluca\\Documents\\AndroidStudioProjects\\AppDrone\\Vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\scrubber_primary_holo.9.png",
+        "source": "C:\\Users\\Gianluca\\Documents\\AndroidStudioProjects\\AppDrone\\Vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\scrubber_primary_holo.9.png"
     },
     {
         "merged": "C:\\Users\\rick\\Desktop\\AppDrone\\Vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\scrubber_primary_holo.9.png",
@@ -36,12 +60,24 @@
         "source": "C:\\Users\\rick\\Desktop\\AppDrone\\Vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\scrubber_control_focused_holo.png"
     },
     {
+        "merged": "C:\\Users\\Gianluca\\Documents\\AndroidStudioProjects\\AppDrone\\Vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\scrubber_control_pressed_holo.png",
+        "source": "C:\\Users\\Gianluca\\Documents\\AndroidStudioProjects\\AppDrone\\Vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\scrubber_control_pressed_holo.png"
+    },
+    {
+        "merged": "C:\\Users\\Gianluca\\Documents\\AndroidStudioProjects\\AppDrone\\Vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\scrubber_secondary_holo.9.png",
+        "source": "C:\\Users\\Gianluca\\Documents\\AndroidStudioProjects\\AppDrone\\Vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\scrubber_secondary_holo.9.png"
+    },
+    {
         "merged": "C:\\Users\\rick\\Desktop\\AppDrone\\Vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\scrubber_control_normal_holo.png",
         "source": "C:\\Users\\rick\\Desktop\\AppDrone\\Vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\scrubber_control_normal_holo.png"
     },
     {
         "merged": "C:\\Users\\Nick\\Downloads\\AppDrone\\Vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\scrubber_control_normal_holo.png",
         "source": "C:\\Users\\Nick\\Downloads\\AppDrone\\Vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\scrubber_control_normal_holo.png"
+    },
+    {
+        "merged": "C:\\Users\\Gianluca\\Documents\\AndroidStudioProjects\\AppDrone\\Vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\mediacontroller_play.png",
+        "source": "C:\\Users\\Gianluca\\Documents\\AndroidStudioProjects\\AppDrone\\Vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\mediacontroller_play.png"
     },
     {
         "merged": "C:\\Users\\rick\\Desktop\\AppDrone\\Vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\scrubber_track_holo_dark.9.png",
