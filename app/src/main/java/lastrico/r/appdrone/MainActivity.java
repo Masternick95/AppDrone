@@ -10,16 +10,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import lastrico.r.appdrone.ImageSaver;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar=null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
@@ -78,12 +78,12 @@ public class MainActivity extends AppCompatActivity
 
             startActivity(manda);
 
-        } else if (id == R.id.recognition) {
-            Intent manda = new Intent( getApplicationContext(),Recognition.class);
+        } /*else if (id == R.id.recognition) {
+            Intent manda = new Intent( getApplicationContext(),Training_Recognition.class);
 
             startActivity(manda);
 
-        }
+        }*/
         else if (id == R.id.download) {
             Intent manda = new Intent( getApplicationContext(),DownloadActivity.class);
 

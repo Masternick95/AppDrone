@@ -14,6 +14,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -26,6 +27,8 @@ public class DroneControlActivity extends AppCompatActivity {
     private VideoView videoView;
     private Button takePictureButton;
     private Button endAcquisitionButton;
+    private Calendar time;
+    private String bitmapName = null;
 
     private Context context = null;
     WifiHandler gestoreWifi;
@@ -48,9 +51,6 @@ public class DroneControlActivity extends AppCompatActivity {
         Intent intent = getIntent();
         SSID_Wifi = intent.getStringExtra("oldNetSSID");
         mode = intent.getStringExtra("Activity");
-        if(mode.equals("Training")){
-            label = intent.getStringExtra("label");
-        }
 
         videoView = (VideoView) findViewById(R.id.vitamio_videoView);
         takePictureButton = (Button) findViewById(R.id.takePhotoButton);
@@ -73,7 +73,9 @@ public class DroneControlActivity extends AppCompatActivity {
                 //Passa imgsPaths al server
                 //Per il training: nella variabile label è contenuto il nome della persona di cui sono state scattate le foto
                 //Per entrambe le modalità nella variabile imgsPaths è contenuto un array list di stringhe che contiene le path di tutte le immagini acquisite
-                Toast.makeText(getApplicationContext(), "INVIO IMMAGINI", Toast.LENGTH_LONG);
+
+
+                Toast.makeText(getApplicationContext(), "INVIO IMMAGINE", Toast.LENGTH_LONG);
             }
         });
 

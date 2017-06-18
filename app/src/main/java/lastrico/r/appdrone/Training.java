@@ -17,6 +17,7 @@ import android.os.IBinder;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -30,16 +31,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Calendar;
 
-import static android.R.color.holo_red_dark;
 import static lastrico.r.appdrone.Interface.ServerInterface.TRAINING;
 
 
-public class Training  extends Activity  implements NavigationView.OnNavigationItemSelectedListener {
-
-
-
+public class Training  extends AppCompatActivity {
     ImageView myImageView = null;
+    private Calendar time;
+    private String bitmapName = null;
     TextView labelTextView;
     Button bttClickMe = null;
     Button bttClickMe2 = null;
@@ -74,7 +74,6 @@ public class Training  extends Activity  implements NavigationView.OnNavigationI
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
 
-
     }
 
     //BINDING WITH SocketService
@@ -93,21 +92,25 @@ public class Training  extends Activity  implements NavigationView.OnNavigationI
     };
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.training_layout);
         labelTextView = (TextView) findViewById(R.id.labelTextView);
 
+        Intent intent = getIntent();
+        mIsBound = intent.getBooleanExtra("isConnected", false);
+        if (mIsBound) {
+            Intent i = new Intent(Training.this, SocketService.class);
+            mIsBound = getApplicationContext().bindService(i, mConnection, Context.BIND_AUTO_CREATE);
+        }
+
+
         FloatingActionButton btTakePhoto = (FloatingActionButton) findViewById(R.id.btTakePhoto);
         btTakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dispatchTakePictureIntent();
-
 
             }
         });
@@ -144,11 +147,6 @@ public class Training  extends Activity  implements NavigationView.OnNavigationI
                 new IntentFilter("commandMessage"));
 
 
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_training);
-        navigationView.setNavigationItemSelectedListener(this);
-
-
         myImageView = (ImageView) findViewById(R.id.etImage);
         bttClickMe2 = (Button) findViewById(R.id.upload);
 
@@ -165,16 +163,14 @@ public class Training  extends Activity  implements NavigationView.OnNavigationI
 
         //------------ BUTTONS & SEEKBAR LISTENERS ------------
 
-        //gray scale button
+
         bttClickMe2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // _myCV = new ManipulateImage(progress, myImageView, myBitmap, 1);
-               // _myCV.execute("");
                 if (mIsBound && mBoundService != null) {
                     if (imgByte != null) {
                         SocketWorker socketWorker =
-                                new SocketWorker(Training.this,mBoundService,"prova",imgByte,progress,TRAINING);
+                                new SocketWorker(Training.this,mBoundService,bitmapName,imgByte,progress,TRAINING);
                         socketWorker.execute();
 
                     }
@@ -202,6 +198,12 @@ public class Training  extends Activity  implements NavigationView.OnNavigationI
         bttConnectDrone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (mIsBound) {
+                    getApplicationContext().unbindService(mConnection);
+                    mIsBound = false;
+                }
+                getApplicationContext().stopService(new Intent(Training.this,SocketService.class));
+
                 wifiHandler = new WifiHandler(getApplicationContext());
                 if(wifiHandler.getDroneConnected()) {
                     bttDrone.setVisibility(View.VISIBLE);
@@ -217,16 +219,17 @@ public class Training  extends Activity  implements NavigationView.OnNavigationI
         bttDrone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(labelTextView.getText().toString().isEmpty()){
-                    //Label vuoto: errore. Necessario label assegnare per il training
-                    Toast.makeText(Training.this, "ERRORE: Specificare label", Toast.LENGTH_LONG).show();
-                }else {
-                    Intent intent = new Intent(Training.this, DroneControlActivity.class);
-                    intent.putExtra("Activity", "Training");
-                    intent.putExtra("oldNetSSID", wifiHandler.getWifiSSID());
-                    intent.putExtra("label", labelTextView.getText().toString());
-                    startActivity(intent);
+                if (mIsBound) {
+                    getApplicationContext().unbindService(mConnection);
+                    mIsBound = false;
                 }
+                getApplicationContext().stopService(new Intent(Training.this,SocketService.class));
+
+                Intent intent = new Intent(Training.this, DroneControlActivity.class);
+                intent.putExtra("Activity", "Training");
+                intent.putExtra("oldNetSSID", wifiHandler.getWifiSSID());
+                startActivity(intent);
+
             }
         });
 
@@ -245,9 +248,11 @@ public class Training  extends Activity  implements NavigationView.OnNavigationI
 
             //manipulateImage = new ManipulateImage(progress, img, bitmap, 1);
             //manipulateImage.execute("");
-            myImageView.setImageBitmap(myBitmap);
+            time = Calendar.getInstance();
+            bitmapName = "Picture_" + time.get(Calendar.HOUR)+time.get(Calendar.MINUTE)+time.get(Calendar.SECOND)
+                    +"_"+time.get(Calendar.DAY_OF_MONTH)+"_"+(time.get(Calendar.MONTH)+1)+"_"+time.get(Calendar.YEAR);
 
-            ManipulateImage.resizeBitmap(myBitmap);
+            resizeBitmap(myBitmap);
             myImageView.buildDrawingCache();
             Bitmap bmp2=myImageView.getDrawingCache();
 
@@ -257,6 +262,32 @@ public class Training  extends Activity  implements NavigationView.OnNavigationI
             myImageView.destroyDrawingCache();
         }
     }
+
+    private void resizeBitmap(Bitmap srcBmp){
+        Bitmap dstBmp;
+        if (srcBmp.getWidth() >= srcBmp.getHeight()){
+            dstBmp = Bitmap.createBitmap(
+                    srcBmp,
+                    srcBmp.getWidth()/2 - srcBmp.getHeight()/2,
+                    0,
+                    srcBmp.getHeight(),
+                    srcBmp.getHeight()
+            );
+        }else{
+            dstBmp = Bitmap.createBitmap(
+                    srcBmp,
+                    0,
+                    srcBmp.getHeight()/2 - srcBmp.getWidth()/2,
+                    srcBmp.getWidth(),
+                    srcBmp.getWidth()
+            );
+        }
+
+        myBitmap = Bitmap.createScaledBitmap(dstBmp, 360, 360, true);
+        myImageView.setImageBitmap(myBitmap);
+
+    }
+
     //Function for saving state of activity (for example when going landscape)
     @Override
     public void onSaveInstanceState(Bundle toSave) {
@@ -285,25 +316,6 @@ public class Training  extends Activity  implements NavigationView.OnNavigationI
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.training) {
-        } else if (id == R.id.recognition) {
-            Intent manda = new Intent( getApplicationContext(),Recognition.class);
-
-            startActivity(manda);
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
@@ -339,4 +351,13 @@ public class Training  extends Activity  implements NavigationView.OnNavigationI
         return stream.toByteArray();
     }
 
+    @Override
+    public void onBackPressed() {
+        if (mIsBound) {
+            getApplicationContext().unbindService(mConnection);
+            mIsBound = false;
+        }
+        getApplicationContext().stopService(new Intent(Training.this,SocketService.class));
+        super.onBackPressed();
+    }
 }
