@@ -133,9 +133,10 @@ public class SocketService extends Service {
                     output.writeObject(imgByte);
 
                     obj = inputData.get();
-                    if (obj == null)
-                        throw new NullPointerException("Null pointer exception");
-
+                    if (obj == null) {
+                        displayToast("Immagine non riconosciuta");
+                        return false;
+                    }
                     SocketService.this.imgDownload = (byte[]) obj;
 
                 } catch (IOException | ExecutionException | InterruptedException e) {
