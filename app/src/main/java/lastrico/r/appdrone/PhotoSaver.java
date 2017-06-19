@@ -27,7 +27,7 @@ public class PhotoSaver {
     public PhotoSaver(Context c, MediaPlayer m, String label){
         this.context = c;
         this.mediaPlayer = m;
-        filename = label+".png";
+        filename = label+".jpg";
     }
 
     public String record(){
@@ -36,7 +36,7 @@ public class PhotoSaver {
                 image = mediaPlayer.getCurrentFrame();
                 File picture = getOutputMediaFile();
                 FileOutputStream fos = new FileOutputStream(picture);
-                image.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                image.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                 fos.close();
                 //Aggiungere qui salvataggio info immagine nel db
 

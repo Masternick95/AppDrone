@@ -74,8 +74,7 @@ public class DroneControlActivity extends AppCompatActivity {
                 //Per il training: nella variabile label è contenuto il nome della persona di cui sono state scattate le foto
                 //Per entrambe le modalità nella variabile imgsPaths è contenuto un array list di stringhe che contiene le path di tutte le immagini acquisite
 
-
-                Toast.makeText(getApplicationContext(), "INVIO IMMAGINE", Toast.LENGTH_LONG);
+                //Toast.makeText(getApplicationContext(), "INVIO IMMAGINE", Toast.LENGTH_LONG);
             }
         });
 
@@ -110,9 +109,6 @@ public class DroneControlActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        gestoreWifi = new WifiHandler(getApplicationContext());
-        gestoreWifi.setWifiSSID(SSID_Wifi);
-        gestoreWifi.reconnectWifi();
 
         super.onBackPressed();
     }

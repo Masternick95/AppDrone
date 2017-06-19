@@ -131,6 +131,21 @@ public class Recognition extends AppCompatActivity implements NavigationView.OnN
         bttConnectDrone = (Button) findViewById(R.id.connect_drone);
         bttDrone = (Button) findViewById(R.id.drone);
 
+        FloatingActionButton fab3 = (FloatingActionButton) findViewById(R.id.btLoadImage);
+        fab3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myBitmap=ImageSaver.LoadImageFromStorage("recognition");
+                resizeBitmap(myBitmap);
+                myImageView.buildDrawingCache();
+                Bitmap bmp2=myImageView.getDrawingCache();
+                imgByte = getBytesFromBitmap(myBitmap);
+                bitmapName = "recognition";
+                myImageView.destroyDrawingCache();
+
+            }
+        });
+
         bttClickMe2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,7 +214,7 @@ public class Recognition extends AppCompatActivity implements NavigationView.OnN
                 Intent intent = new Intent(Recognition.this, DroneControlActivity.class);
                 intent.putExtra("Activity", "Training");
                 intent.putExtra("oldNetSSID", wifiHandler.getWifiSSID());
-                intent.putExtra("label", labelTextView.getText().toString());
+                intent.putExtra("label", "recognition");
                 startActivity(intent);
 
             }

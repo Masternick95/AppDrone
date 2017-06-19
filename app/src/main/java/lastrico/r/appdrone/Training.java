@@ -142,7 +142,7 @@ public class Training  extends AppCompatActivity {
                 myImageView.buildDrawingCache();
                 Bitmap bmp2=myImageView.getDrawingCache();
                 imgByte = getBytesFromBitmap(myBitmap);
-
+                bitmapName = nome;
                 myImageView.destroyDrawingCache();
 
             }
@@ -293,6 +293,31 @@ public class Training  extends AppCompatActivity {
 
         myBitmap = Bitmap.createScaledBitmap(dstBmp, 360, 360, true);
         myImageView.setImageBitmap(myBitmap);
+
+    }
+
+    private void resizeBitmapDrone(Bitmap srcBmp){
+        Bitmap dstBmp;
+        if (srcBmp.getWidth() >= srcBmp.getHeight()){
+            dstBmp = Bitmap.createBitmap(
+                    srcBmp,
+                    srcBmp.getWidth()/2 - srcBmp.getHeight()/2,
+                    0,
+                    srcBmp.getHeight(),
+                    srcBmp.getHeight()
+            );
+        }else{
+            dstBmp = Bitmap.createBitmap(
+                    srcBmp,
+                    0,
+                    srcBmp.getHeight()/2 - srcBmp.getWidth()/2,
+                    srcBmp.getWidth(),
+                    srcBmp.getWidth()
+            );
+        }
+
+        //myBitmap = Bitmap.createScaledBitmap(dstBmp, 360, 360, true);
+        myImageView.setImageBitmap(dstBmp);
 
     }
 

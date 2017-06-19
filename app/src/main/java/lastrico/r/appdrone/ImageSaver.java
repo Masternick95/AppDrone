@@ -39,7 +39,7 @@ public class ImageSaver {
     {
         Bitmap imgTemp=null;
         try {
-            File f=new File("/sdcard/Pictures", name+".png");
+            File f=new File("/sdcard/Pictures", name+".jpg");
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
             imgTemp=b;
         }
