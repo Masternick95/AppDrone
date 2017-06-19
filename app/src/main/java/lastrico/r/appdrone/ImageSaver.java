@@ -37,16 +37,16 @@ public class ImageSaver {
 
     public static Bitmap LoadImageFromStorage(String name)
     {
-        Bitmap cane=null;
+        Bitmap imgTemp=null;
         try {
-            File f=new File("/sdcard/download", name+".png");
+            File f=new File("/sdcard/Pictures", name+".png");
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
-            cane=b;
+            imgTemp=b;
         }
         catch (FileNotFoundException e)
         {
             e.printStackTrace();
         }
-        return cane;
+        return imgTemp;
     }
 }

@@ -14,5 +14,9 @@
     {
         "merged": "C:\\Users\\Nick\\Downloads\\AppDrone\\Vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\libarm.so",
         "source": "C:\\Users\\Nick\\Downloads\\AppDrone\\Vitamio\\build\\intermediates\\bundles\\debug\\res\\raw\\libarm.so"
+    },
+    {
+        "merged": "C:\\Users\\Cristina\\Desktop\\LabAndroid\\AppDrone\\Vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\libarm.so",
+        "source": "C:\\Users\\Cristina\\Desktop\\LabAndroid\\AppDrone\\Vitamio\\build\\intermediates\\bundles\\debug\\res\\raw\\libarm.so"
     }
 ]

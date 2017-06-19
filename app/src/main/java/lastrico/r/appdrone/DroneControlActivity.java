@@ -27,13 +27,11 @@ public class DroneControlActivity extends AppCompatActivity {
     private VideoView videoView;
     private Button takePictureButton;
     private Button endAcquisitionButton;
-    private Calendar time;
-    private String bitmapName = null;
 
     private Context context = null;
     WifiHandler gestoreWifi;
 
-    ArrayList<String> imgsPaths;
+    String imgPath = null;
     String mode;    //Modalità di funzionamento activity(training o recognition) fondamentale per determinare numero immagini da acquisire
     String label;   //Necessario solo per il training
 
@@ -51,17 +49,19 @@ public class DroneControlActivity extends AppCompatActivity {
         Intent intent = getIntent();
         SSID_Wifi = intent.getStringExtra("oldNetSSID");
         mode = intent.getStringExtra("Activity");
+        if(mode.equals("Training")){
+            label = intent.getStringExtra("label");
+        }
 
         videoView = (VideoView) findViewById(R.id.vitamio_videoView);
         takePictureButton = (Button) findViewById(R.id.takePhotoButton);
         endAcquisitionButton = (Button) findViewById(R.id.endAcquisition);
 
-        imgsPaths = new ArrayList<String>();
-
         takePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 capturePhoto(null);
+
             }
         });
         endAcquisitionButton.setOnClickListener(new View.OnClickListener() {
@@ -97,17 +97,23 @@ public class DroneControlActivity extends AppCompatActivity {
 
     private void capturePhoto(View view){
         try{
-            PhotoSaver photoSaver = new PhotoSaver(context, videoView.getMediaPlayer());
-            String imgPath = photoSaver.record();
-            if(imgPath == null){
+            PhotoSaver photoSaver = new PhotoSaver(context, videoView.getMediaPlayer(), label);
+            imgPath = photoSaver.record();
+            if(imgPath == null) {
                 //errore acquisizione foto
                 Toast.makeText(getApplicationContext(), "Errore acquisizione foto", Toast.LENGTH_LONG);
-            }else{
-                //Foto acquisita con successo
-                imgsPaths.add(imgPath);
             }
         }catch(Exception e){
             Toast.makeText(getApplicationContext(), "Picture error!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        gestoreWifi = new WifiHandler(getApplicationContext());
+        gestoreWifi.setWifiSSID(SSID_Wifi);
+        gestoreWifi.reconnectWifi();
+
+        super.onBackPressed();
     }
 }

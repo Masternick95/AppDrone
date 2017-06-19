@@ -41,6 +41,7 @@ public class Training  extends AppCompatActivity {
     private Calendar time;
     private String bitmapName = null;
     TextView labelTextView;
+    EditText label;
     Button bttClickMe = null;
     Button bttClickMe2 = null;
     Button bttClickMe4 = null;
@@ -97,6 +98,7 @@ public class Training  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.training_layout);
         labelTextView = (TextView) findViewById(R.id.labelTextView);
+        label = (EditText) findViewById(R.id.imageName);
 
         Intent intent = getIntent();
         mIsBound = intent.getBooleanExtra("isConnected", false);
@@ -118,8 +120,7 @@ public class Training  extends AppCompatActivity {
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText imageName=(EditText)findViewById(R.id.imageName);
-                String nome=imageName.getText().toString();
+                String nome=label.getText().toString();
                 myImageView.buildDrawingCache();
                 Bitmap bmap = myImageView.getDrawingCache();
                 myBitmap=bmap;
@@ -135,11 +136,14 @@ public class Training  extends AppCompatActivity {
         fab3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText imageName=(EditText)findViewById(R.id.imageName);
-                String nome=imageName.getText().toString();
+                String nome=label.getText().toString();
                 myBitmap=ImageSaver.LoadImageFromStorage(nome);
-                myImageView.setImageBitmap(myBitmap);
+                resizeBitmap(myBitmap);
+                myImageView.buildDrawingCache();
+                Bitmap bmp2=myImageView.getDrawingCache();
+                imgByte = getBytesFromBitmap(myBitmap);
 
+                myImageView.destroyDrawingCache();
 
             }
         });
@@ -219,21 +223,25 @@ public class Training  extends AppCompatActivity {
         bttDrone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mIsBound) {
-                    getApplicationContext().unbindService(mConnection);
-                    mIsBound = false;
+                if(label.getText().toString().isEmpty()) {
+                    //Label vuoto: errore. Necessario label assegnare per il training
+                    Toast.makeText(Training.this, "ERRORE: Specificare label", Toast.LENGTH_LONG).show();
+
+                } else {
+                    if (mIsBound) {
+                        getApplicationContext().unbindService(mConnection);
+                        mIsBound = false;
+                    }
+                    getApplicationContext().stopService(new Intent(Training.this, SocketService.class));
+
+                    Intent intent = new Intent(Training.this, DroneControlActivity.class);
+                    intent.putExtra("Activity", "Training");
+                    intent.putExtra("oldNetSSID", wifiHandler.getWifiSSID());
+                    intent.putExtra("label", label.getText().toString());
+                    startActivity(intent);
                 }
-                getApplicationContext().stopService(new Intent(Training.this,SocketService.class));
-
-                Intent intent = new Intent(Training.this, DroneControlActivity.class);
-                intent.putExtra("Activity", "Training");
-                intent.putExtra("oldNetSSID", wifiHandler.getWifiSSID());
-                startActivity(intent);
-
             }
         });
-
-
     }
 
     @Override

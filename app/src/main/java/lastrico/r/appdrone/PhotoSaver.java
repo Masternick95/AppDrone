@@ -19,18 +19,15 @@ import io.vov.vitamio.MediaPlayer;
 
 public class PhotoSaver {
     String filename;
-    String finalname;
     Bitmap image;
-    Calendar rigthNow;
     MediaPlayer mediaPlayer;
     Context context;
     String imgName;
 
-    public PhotoSaver(Context c, MediaPlayer m){
+    public PhotoSaver(Context c, MediaPlayer m, String label){
         this.context = c;
         this.mediaPlayer = m;
-        rigthNow = Calendar.getInstance();
-        filename = rigthNow.get(Calendar.DAY_OF_MONTH)+"_"+rigthNow.get(Calendar.MONTH)+"_"+rigthNow.get(Calendar.YEAR)+".jpeg";
+        filename = label+".png";
     }
 
     public String record(){
@@ -39,7 +36,7 @@ public class PhotoSaver {
                 image = mediaPlayer.getCurrentFrame();
                 File picture = getOutputMediaFile();
                 FileOutputStream fos = new FileOutputStream(picture);
-                image.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                image.compress(Bitmap.CompressFormat.PNG, 100, fos);
                 fos.close();
                 //Aggiungere qui salvataggio info immagine nel db
 
@@ -59,11 +56,8 @@ public class PhotoSaver {
     }
 
     private File getOutputMediaFile(){
-        rigthNow = Calendar.getInstance();
-        finalname = "DronePicture_" + rigthNow.get(Calendar.HOUR)+":"+rigthNow.get(Calendar.MINUTE)+":"+rigthNow.get(Calendar.SECOND)+"_"+finalname;
-        //Create media file name
         File mediaFile;
-        imgName = Environment.getExternalStorageDirectory()+"/Pictures/"+finalname;
+        imgName = Environment.getExternalStorageDirectory()+"/Pictures/"+filename;
         mediaFile = new File(imgName);
         return mediaFile;
     }
