@@ -195,12 +195,15 @@ public class Recognition extends AppCompatActivity implements NavigationView.OnN
                     mIsBound = false;
                 }
                 getApplicationContext().stopService(new Intent(Recognition.this,SocketService.class));
-
-                Intent intent = new Intent(Recognition.this, DroneControlActivity.class);
-                intent.putExtra("Activity", "Training");
-                intent.putExtra("oldNetSSID", wifiHandler.getWifiSSID());
-                intent.putExtra("label", labelTextView.getText().toString());
-                startActivity(intent);
+                if(wifiHandler.checkDroneConnection() == true) {
+                    Intent intent = new Intent(Recognition.this, DroneControlActivity.class);
+                    intent.putExtra("Activity", "Training");
+                    intent.putExtra("oldNetSSID", wifiHandler.getWifiSSID());
+                    intent.putExtra("label", labelTextView.getText().toString());
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(Recognition.this, "Connettersi al drone", Toast.LENGTH_LONG).show();
+                }
 
             }
         });

@@ -30,6 +30,25 @@ public class WifiHandler {
         return this.SSID_WiFi;
     }
 
+    public boolean checkDroneConnection(){
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        if(!wifiManager.isWifiEnabled()){
+            //Wifi Non attivo
+            return false;
+        }else{
+            WifiInfo connInfo = wifiManager.getConnectionInfo();
+            if(connInfo != null){
+                if(connInfo.getSSID().toString().equals(SSID_DRONE)){
+                    return  true;
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        }
+    }
+
     public boolean getDroneConnected(){
         WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         if(!wifiManager.isWifiEnabled()){

@@ -234,11 +234,15 @@ public class Training  extends AppCompatActivity {
                     }
                     getApplicationContext().stopService(new Intent(Training.this, SocketService.class));
 
-                    Intent intent = new Intent(Training.this, DroneControlActivity.class);
-                    intent.putExtra("Activity", "Training");
-                    intent.putExtra("oldNetSSID", wifiHandler.getWifiSSID());
-                    intent.putExtra("label", label.getText().toString());
-                    startActivity(intent);
+                    if(wifiHandler.checkDroneConnection() == true) {
+                        Intent intent = new Intent(Training.this, DroneControlActivity.class);
+                        intent.putExtra("Activity", "Training");
+                        intent.putExtra("oldNetSSID", wifiHandler.getWifiSSID());
+                        intent.putExtra("label", label.getText().toString());
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(Training.this, "Connettersi al drone", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
