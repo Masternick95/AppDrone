@@ -234,7 +234,7 @@ public class Training  extends AppCompatActivity {
                 intent.putExtra("oldNetSSID", wifiHandler.getWifiSSID());
                 startActivity(intent);
             }
-            
+
         });
     }
 

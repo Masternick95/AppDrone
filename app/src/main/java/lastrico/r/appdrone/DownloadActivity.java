@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +25,8 @@ public class DownloadActivity extends AppCompatActivity {
     ImageView img;
     Button btn;
     byte[] imgDown = null;
+    String imgName = null;
+    TextView nameOfPerson = null;
 
     //BINDING WITH SocketService
     private boolean mIsBound;
@@ -35,6 +38,7 @@ public class DownloadActivity extends AppCompatActivity {
             mBoundService = binder.getService();
 
             imgDown = mBoundService.getImgDownload();
+            imgName = mBoundService.getImgName();
         }
         @Override
         public void onServiceDisconnected(ComponentName name) {
@@ -53,6 +57,7 @@ public class DownloadActivity extends AppCompatActivity {
         }
         img = (ImageView) findViewById(R.id.imgDownload);
         btn = (Button) findViewById(R.id.display);
+        nameOfPerson = (TextView) findViewById(R.id.namePerson);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +65,7 @@ public class DownloadActivity extends AppCompatActivity {
                 if(imgDown != null){
                     Bitmap bitmap = BitmapFactory.decodeByteArray(imgDown,0,imgDown.length);
                     img.setImageBitmap(bitmap);
+                    nameOfPerson.setText(imgName);
                 }
 
             }
