@@ -21,11 +21,22 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-    <Button
+    <!--<Button
         android:id="@+id/endAcquisition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Fine acquisizione"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true" />-->
+    <TextView
+        android:id="@+id/labelTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name of the person" />
+
+    <EditText
+        android:id="@+id/label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/labelTextView" />
 </RelativeLayout>

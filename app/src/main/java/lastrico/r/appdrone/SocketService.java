@@ -38,6 +38,7 @@ public class SocketService extends Service {
     private ExecutorService inputListener = Executors.newFixedThreadPool(2);
     public boolean isClosed;
     private byte[] imgDownload;
+    private String imgName;
 
     @Override
     public void onCreate() {
@@ -158,6 +159,9 @@ public class SocketService extends Service {
         return imgDownload;
     }
 
+    public String getImgName(){
+        return imgName;
+    }
 
 
 
