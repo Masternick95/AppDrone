@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import android.net.wifi.ScanResult;
@@ -33,7 +34,8 @@ public class DroneControlActivity extends AppCompatActivity {
 
     String imgPath = null;
     String mode;    //Modalità di funzionamento activity(training o recognition) fondamentale per determinare numero immagini da acquisire
-    String label;   //Necessario solo per il training
+    //String label;   //Necessario solo per il training
+    EditText label;
 
     private final String PATH = "tcp://192.168.1.1:5555/";  //Path per acquisizione stream video dal drone
     private final String SSID_DRONE = "ardrone2_044992";    //SSID di default del drone a cui connettersi
@@ -49,22 +51,28 @@ public class DroneControlActivity extends AppCompatActivity {
         Intent intent = getIntent();
         SSID_Wifi = intent.getStringExtra("oldNetSSID");
         mode = intent.getStringExtra("Activity");
-        if(mode.equals("Training")){
+        /*if(mode.equals("Training")){
             label = intent.getStringExtra("label");
-        }
+        }*/
 
+        label = (EditText) findViewById(R.id.label);
         videoView = (VideoView) findViewById(R.id.vitamio_videoView);
         takePictureButton = (Button) findViewById(R.id.takePhotoButton);
-        endAcquisitionButton = (Button) findViewById(R.id.endAcquisition);
+        //endAcquisitionButton = (Button) findViewById(R.id.endAcquisition);
 
         takePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                capturePhoto(null);
+                if(label.getText().toString().isEmpty())
+                    //Label vuoto: errore. Necessario label assegnare per il training
+                    Toast.makeText(DroneControlActivity.this, "ERRORE: Specificare label", Toast.LENGTH_LONG).show();
+                else
+                    capturePhoto(null);
 
             }
         });
-        endAcquisitionButton.setOnClickListener(new View.OnClickListener() {
+
+        /*endAcquisitionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 gestoreWifi = new WifiHandler(getApplicationContext());
@@ -76,7 +84,7 @@ public class DroneControlActivity extends AppCompatActivity {
 
                 //Toast.makeText(getApplicationContext(), "INVIO IMMAGINE", Toast.LENGTH_LONG);
             }
-        });
+        });*/
 
         videoView.setVideoQuality(MediaPlayer.VIDEOQUALITY_HIGH);
         videoView.setBufferSize(4096);
@@ -96,7 +104,7 @@ public class DroneControlActivity extends AppCompatActivity {
 
     private void capturePhoto(View view){
         try{
-            PhotoSaver photoSaver = new PhotoSaver(context, videoView.getMediaPlayer(), label);
+            PhotoSaver photoSaver = new PhotoSaver(context, videoView.getMediaPlayer(), label.getText().toString());
             imgPath = photoSaver.record();
             if(imgPath == null) {
                 //errore acquisizione foto
@@ -109,6 +117,9 @@ public class DroneControlActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        gestoreWifi = new WifiHandler(getApplicationContext());
+        gestoreWifi.setWifiSSID(SSID_Wifi);
+        gestoreWifi.reconnectWifi();
 
         super.onBackPressed();
     }

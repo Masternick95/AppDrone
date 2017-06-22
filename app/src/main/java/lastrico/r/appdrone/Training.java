@@ -223,24 +223,18 @@ public class Training  extends AppCompatActivity {
         bttDrone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(label.getText().toString().isEmpty()) {
-                    //Label vuoto: errore. Necessario label assegnare per il training
-                    Toast.makeText(Training.this, "ERRORE: Specificare label", Toast.LENGTH_LONG).show();
-
-                } else {
-                    if (mIsBound) {
-                        getApplicationContext().unbindService(mConnection);
-                        mIsBound = false;
-                    }
-                    getApplicationContext().stopService(new Intent(Training.this, SocketService.class));
-
-                    Intent intent = new Intent(Training.this, DroneControlActivity.class);
-                    intent.putExtra("Activity", "Training");
-                    intent.putExtra("oldNetSSID", wifiHandler.getWifiSSID());
-                    intent.putExtra("label", label.getText().toString());
-                    startActivity(intent);
+               if (mIsBound) {
+                    getApplicationContext().unbindService(mConnection);
+                    mIsBound = false;
                 }
+                getApplicationContext().stopService(new Intent(Training.this, SocketService.class));
+
+                Intent intent = new Intent(Training.this, DroneControlActivity.class);
+                intent.putExtra("Activity", "Training");
+                intent.putExtra("oldNetSSID", wifiHandler.getWifiSSID());
+                startActivity(intent);
             }
+            
         });
     }
 
