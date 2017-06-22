@@ -104,6 +104,8 @@ public class Recognition extends AppCompatActivity implements NavigationView.OnN
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        wifiHandler = new WifiHandler(getApplicationContext());
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -124,6 +126,22 @@ public class Recognition extends AppCompatActivity implements NavigationView.OnN
             }
         });
 
+        FloatingActionButton fab3 = (FloatingActionButton) findViewById(R.id.btLoadImage);
+        fab3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String nome="recognition";
+                myBitmap=ImageSaver.LoadImageFromStorage(nome);
+                resizeBitmap(myBitmap);
+                myImageView.buildDrawingCache();
+                Bitmap bmp2=myImageView.getDrawingCache();
+                imgByte = getBytesFromBitmap(myBitmap);
+
+                myImageView.destroyDrawingCache();
+
+            }
+        });
+
         myImageView = (ImageView) findViewById(R.id.etImage);
         bttClickMe2 = (Button) findViewById(R.id.upload);
         connect = (Button) findViewById(R.id.connectServer);
@@ -138,7 +156,7 @@ public class Recognition extends AppCompatActivity implements NavigationView.OnN
                     if (imgByte != null) {
                         try {
                             SocketWorker socketWorker =
-                                    new SocketWorker(Recognition.this,mBoundService,bitmapName,imgByte,progress,RECOGNITION);
+                                    new SocketWorker(Recognition.this,mBoundService,"recognition",imgByte,progress,RECOGNITION);
                             socketWorker.execute();
 
                         } catch (Exception e) {
@@ -175,13 +193,13 @@ public class Recognition extends AppCompatActivity implements NavigationView.OnN
                 }
                 getApplicationContext().stopService(new Intent(Recognition.this,SocketService.class));
 
-                wifiHandler = new WifiHandler(getApplicationContext());
+
                 if(wifiHandler.getDroneConnected()) {
-                    bttDrone.setVisibility(View.VISIBLE);
-                    bttConnectDrone.setVisibility(View.INVISIBLE);
+                    //bttDrone.setVisibility(View.VISIBLE);
+                    //bttConnectDrone.setVisibility(View.INVISIBLE);
                     Toast.makeText(Recognition.this, "Connesso al drone", Toast.LENGTH_LONG);
                 }else{
-                    bttDrone.setVisibility(View.INVISIBLE);
+                    //bttDrone.setVisibility(View.INVISIBLE);
                     Toast.makeText(Recognition.this, "Errore connessione drone", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -190,16 +208,16 @@ public class Recognition extends AppCompatActivity implements NavigationView.OnN
         bttDrone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mIsBound) {
-                    getApplicationContext().unbindService(mConnection);
-                    mIsBound = false;
-                }
-                getApplicationContext().stopService(new Intent(Recognition.this,SocketService.class));
                 if(wifiHandler.checkDroneConnection() == true) {
+                    if (mIsBound) {
+                        getApplicationContext().unbindService(mConnection);
+                        mIsBound = false;
+                    }
+                    getApplicationContext().stopService(new Intent(Recognition.this,SocketService.class));
+
                     Intent intent = new Intent(Recognition.this, DroneControlActivity.class);
-                    intent.putExtra("Activity", "Training");
+                    intent.putExtra("Activity", "Recognition");
                     intent.putExtra("oldNetSSID", wifiHandler.getWifiSSID());
-                    intent.putExtra("label", labelTextView.getText().toString());
                     startActivity(intent);
                 }else{
                     Toast.makeText(Recognition.this, "Connettersi al drone", Toast.LENGTH_LONG).show();

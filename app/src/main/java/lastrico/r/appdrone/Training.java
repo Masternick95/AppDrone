@@ -99,6 +99,7 @@ public class Training  extends AppCompatActivity {
         setContentView(R.layout.training_layout);
         labelTextView = (TextView) findViewById(R.id.labelTextView);
         label = (EditText) findViewById(R.id.imageName);
+        wifiHandler = new WifiHandler(getApplicationContext());
 
         Intent intent = getIntent();
         mIsBound = intent.getBooleanExtra("isConnected", false);
@@ -173,9 +174,13 @@ public class Training  extends AppCompatActivity {
             public void onClick(View v) {
                 if (mIsBound && mBoundService != null) {
                     if (imgByte != null) {
-                        SocketWorker socketWorker =
-                                new SocketWorker(Training.this,mBoundService,bitmapName,imgByte,progress,TRAINING);
-                        socketWorker.execute();
+                        if(label.getText().toString().isEmpty())
+                            mBoundService.displayToast("Inserisci nome");
+                        else{
+                            SocketWorker socketWorker =
+                                    new SocketWorker(Training.this,mBoundService,label.getText().toString(),imgByte,progress,TRAINING);
+                            socketWorker.execute();
+                        }
 
                     }
                 }
@@ -208,13 +213,13 @@ public class Training  extends AppCompatActivity {
                 }
                 getApplicationContext().stopService(new Intent(Training.this,SocketService.class));
 
-                wifiHandler = new WifiHandler(getApplicationContext());
+
                 if(wifiHandler.getDroneConnected()) {
-                    bttDrone.setVisibility(View.VISIBLE);
-                    bttConnectDrone.setVisibility(View.INVISIBLE);
+                    //bttDrone.setVisibility(View.VISIBLE);
+                    //bttConnectDrone.setVisibility(View.INVISIBLE);
                     Toast.makeText(Training.this, "Connesso al drone", Toast.LENGTH_LONG);
                 }else{
-                    bttDrone.setVisibility(View.INVISIBLE);
+                    //bttDrone.setVisibility(View.INVISIBLE);
                     Toast.makeText(Training.this, "Errore connessione drone", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -223,28 +228,22 @@ public class Training  extends AppCompatActivity {
         bttDrone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(label.getText().toString().isEmpty()) {
-                    //Label vuoto: errore. Necessario label assegnare per il training
-                    Toast.makeText(Training.this, "ERRORE: Specificare label", Toast.LENGTH_LONG).show();
-
-                } else {
+                if(wifiHandler.checkDroneConnection() == true) {
                     if (mIsBound) {
                         getApplicationContext().unbindService(mConnection);
                         mIsBound = false;
                     }
                     getApplicationContext().stopService(new Intent(Training.this, SocketService.class));
 
-                    if(wifiHandler.checkDroneConnection() == true) {
-                        Intent intent = new Intent(Training.this, DroneControlActivity.class);
-                        intent.putExtra("Activity", "Training");
-                        intent.putExtra("oldNetSSID", wifiHandler.getWifiSSID());
-                        intent.putExtra("label", label.getText().toString());
-                        startActivity(intent);
-                    }else{
-                        Toast.makeText(Training.this, "Connettersi al drone", Toast.LENGTH_LONG).show();
-                    }
+                    Intent intent = new Intent(Training.this, DroneControlActivity.class);
+                    intent.putExtra("Activity", "Training");
+                    intent.putExtra("oldNetSSID", wifiHandler.getWifiSSID());
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(Training.this, "Connettersi al drone", Toast.LENGTH_LONG).show();
                 }
             }
+
         });
     }
 
@@ -260,9 +259,9 @@ public class Training  extends AppCompatActivity {
 
             //manipulateImage = new ManipulateImage(progress, img, bitmap, 1);
             //manipulateImage.execute("");
-            time = Calendar.getInstance();
-            bitmapName = "Picture_" + time.get(Calendar.HOUR)+time.get(Calendar.MINUTE)+time.get(Calendar.SECOND)
-                    +"_"+time.get(Calendar.DAY_OF_MONTH)+"_"+(time.get(Calendar.MONTH)+1)+"_"+time.get(Calendar.YEAR);
+            //time = Calendar.getInstance();
+            //bitmapName = "Picture_" + time.get(Calendar.HOUR)+time.get(Calendar.MINUTE)+time.get(Calendar.SECOND)
+                    //+"_"+time.get(Calendar.DAY_OF_MONTH)+"_"+(time.get(Calendar.MONTH)+1)+"_"+time.get(Calendar.YEAR);
 
             resizeBitmap(myBitmap);
             myImageView.buildDrawingCache();

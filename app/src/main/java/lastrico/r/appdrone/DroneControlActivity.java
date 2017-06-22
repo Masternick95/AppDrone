@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import android.net.wifi.ScanResult;
@@ -36,9 +37,10 @@ public class DroneControlActivity extends AppCompatActivity {
     String mode;    //Modalità di funzionamento activity(training o recognition) fondamentale per determinare numero immagini da acquisire
     //String label;   //Necessario solo per il training
     EditText label;
+    TextView nomePersona;
 
     private final String PATH = "tcp://192.168.1.1:5555/";  //Path per acquisizione stream video dal drone
-    private final String SSID_DRONE = "ardrone2_044992";    //SSID di default del drone a cui connettersi
+    //private final String SSID_DRONE = "ardrone2_044992";    //SSID di default del drone a cui connettersi
 
     private String SSID_Wifi;
 
@@ -51,11 +53,12 @@ public class DroneControlActivity extends AppCompatActivity {
         Intent intent = getIntent();
         SSID_Wifi = intent.getStringExtra("oldNetSSID");
         mode = intent.getStringExtra("Activity");
-        /*if(mode.equals("Training")){
-            label = intent.getStringExtra("label");
-        }*/
-
         label = (EditText) findViewById(R.id.label);
+        if(mode.equals("Recognition")){
+            label.setText("recognition");
+        }
+
+
         videoView = (VideoView) findViewById(R.id.vitamio_videoView);
         takePictureButton = (Button) findViewById(R.id.takePhotoButton);
         //endAcquisitionButton = (Button) findViewById(R.id.endAcquisition);

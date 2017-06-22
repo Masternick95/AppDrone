@@ -138,7 +138,12 @@ public class SocketService extends Service {
                         displayToast("Immagine non riconosciuta");
                         return false;
                     }
-                    SocketService.this.imgDownload = (byte[]) obj;
+                    HashMap<String, byte[]> img = (HashMap<String, byte[]>) obj;
+                    for (String s : img.keySet()){
+                        SocketService.this.imgName = s;
+                        SocketService.this.imgDownload = img.get(s);
+                    }
+
 
                 } catch (IOException | ExecutionException | InterruptedException e) {
                     displayToast(e.getMessage());

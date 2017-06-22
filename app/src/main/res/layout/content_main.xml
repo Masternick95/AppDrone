@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="lastrico.r.appdrone.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
@@ -46,7 +45,7 @@
         <ImageView
             android:id="@+id/etImage"
             android:layout_width="match_parent"
-            android:layout_height="237dp" />
+            android:layout_height="280dp" />
 
 
         <Button
